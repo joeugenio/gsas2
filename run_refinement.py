@@ -15,7 +15,7 @@ from config import *
 sys.path.insert(0,GSPATH)
 import GSASIIscriptable as G2sc
 
-# set verbosity level
+# set verbosity level (all, warn, error or None)
 G2sc.SetPrintLevel('warn')
 
 # ----------------------------------------------
@@ -72,7 +72,7 @@ for powder in powders:
 # parameters dictionary step 1
 dict1 = {'set': { 'Background': {'type': 'chebyschev', 'no. coeffs' : 3, 'refine': True}, 'Scale': 'True'}, 'clear': {'Sample Parameters': ['Scale']}}
 # parameters dictionary step 2
-dict2 = {'set': { 'Background': {'type': 'chebyschev', 'no. coeffs' : 14, 'refine': True}}}
+dict2 = {'set': { 'Background': {'type': 'chebyschev', 'no. coeffs' : 15, 'refine': True}}}
 # parameters dictionary step 3
 dict3 = {'set': { 'Sample Parameters': ['Shift']}}
 # parameters dictionary step 4
@@ -93,7 +93,7 @@ params = [dict1, dict2, dict3, dict4, dict5, dict6, dict7, dict8, dict9]
 # parameters dictionary step 10, preferred orientation model (optional)
 dict10 = {'Pref.Ori.': True}
 
-# run all refinement steps for all projects
+# run refinement steps from 1 to 9 for all projects
 for proj, proj_dir in zip(projs, proj_dirs):
 	try:
 		proj.do_refinements(params, makeBack=True)
@@ -102,15 +102,20 @@ for proj, proj_dir in zip(projs, proj_dirs):
 		for h in proj.histograms():
 			print('Verify {} refinement parameters.'.format(h.name))
 	proj.save()
+	# export powder data as text file
+	for h in proj.histograms():
+		h.Export(os.path.join(proj_dir,PNAME), TXTEXT)
 
+# run refinement step 10 for all projects
+for proj, proj_dir in zip(projs, proj_dirs):
 	# set march dollase preferred orientation model from POM list for some phases 
 	for fname, phs in zip(phases, proj.phases()):
 		for pname in POM:
 			if pname.lower() in fname.lower():
 				phs.set_HAP_refinements(dict10)
-
 	try:
-		proj.do_refinements(outputnames=[os.path.join(proj_dirs[0], 'march-dollase.gpx')])
+		outname = os.path.join(proj_dir, 'march-dollase.gpx')
+		proj.do_refinements(outputnames=[outname])
 	except Exception as e:
 		print('An exception occurred when running refinements with preferred orientation: {}'.format(e))
 		for h in proj.histograms():
@@ -118,7 +123,8 @@ for proj, proj_dir in zip(projs, proj_dirs):
 	proj.save()
 	# export powder data as text file
 	for h in proj.histograms():
-		h.Export(os.path.join(proj_dir,PNAME), TXTEXT)
+		h.Export(outname, TXTEXT)
+
 print('Refinements finished, see {} folder.'.format(OUTDIR))
 # ----------------------------------------------
 # End
