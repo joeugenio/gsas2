@@ -45,7 +45,7 @@ projs = []
 proj_dirs = []
 for powder in powders:
 	# create dirs
-	proj_dir = os.path.join(OUTDIR, powder[:powder.find('_')])
+	proj_dir = os.path.join(OUTDIR, powder[:powder.lower().find(PWDEXT)])
 	proj_dirs.append(proj_dir)
 	if os.path.exists(proj_dir):
 		#os.rmdir(proj_dir)
