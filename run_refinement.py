@@ -5,7 +5,7 @@ Python script for running multiple refinements in GSAS II
 Main script
 
 @author: Joel Eugênio Cordeiro Junior
-last updated on: 3/1/2020
+last updated on: 5/1/2020
 
 """
 
@@ -45,7 +45,7 @@ projs = []
 proj_dirs = []
 for powder in powders:
 	# create dirs
-	proj_dir = os.path.join(OUTDIR, powder[:powder.find('-')])
+	proj_dir = os.path.join(OUTDIR, powder[:powder.find('_')])
 	proj_dirs.append(proj_dir)
 	if os.path.exists(proj_dir):
 		#os.rmdir(proj_dir)
@@ -57,7 +57,7 @@ for powder in powders:
 	for phase in phases:
 		gpx.add_phase(os.path.join(INDIR, phase))
 	# add powder data
-	gpx.add_powder_histogram(datafile=os.path.join(INDIR, powder), iparams=os.path.join(INDIR,PRM), phases='all')
+	gpx.add_powder_histogram(datafile=os.path.join(INDIR, powder), iparams=os.path.join(INDIR, PRM), phases='all')
 #	# set controls
 	gpx.set_Controls('cycles', 10)
 	# save project
@@ -70,9 +70,9 @@ for powder in powders:
 # ----------------------------------------------
 
 # parameters dictionary step 1
-dict1 = {'set': { 'Background': {'type': 'chebyschev', 'no. coeffs' : 3, 'refine': True}, 'Scale': 'True'}, 'clear': {'Sample Parameters': ['Scale']}}
+dict1 = {'set': { 'Background': {'type': 'chebyschev-1', 'no. coeffs' : 3, 'refine': True}, 'Scale': 'True'}, 'clear': {'Sample Parameters': ['Scale']}}
 # parameters dictionary step 2
-dict2 = {'set': { 'Background': {'type': 'chebyschev', 'no. coeffs' : 15, 'refine': True}}}
+dict2 = {'set': { 'Background': {'type': 'chebyschev-1', 'no. coeffs' : 15, 'refine': True}}}
 # parameters dictionary step 3
 dict3 = {'set': { 'Sample Parameters': ['Shift']}}
 # parameters dictionary step 4
@@ -107,23 +107,26 @@ for proj, proj_dir in zip(projs, proj_dirs):
 		h.Export(os.path.join(proj_dir,PNAME), TXTEXT)
 
 # run refinement step 10 for all projects
+run_step10 = False
 for proj, proj_dir in zip(projs, proj_dirs):
 	# set march dollase preferred orientation model from POM list for some phases 
 	for fname, phs in zip(phases, proj.phases()):
 		for pname in POM:
 			if pname.lower() in fname.lower():
 				phs.set_HAP_refinements(dict10)
-	try:
-		outname = os.path.join(proj_dir, 'march-dollase.gpx')
-		proj.do_refinements(outputnames=[outname])
-	except Exception as e:
-		print('An exception occurred when running refinements with preferred orientation: {}'.format(e))
+				run_step10 = True
+	if run_step10:
+		try:
+			outname = os.path.join(proj_dir, 'march-dollase.gpx')
+			proj.do_refinements(outputnames=[outname])
+		except Exception as e:
+			print('An exception occurred when running refinements with preferred orientation: {}'.format(e))
+			for h in proj.histograms():
+				print('Verify {} refinement parameters.'.format(h.name))
+		proj.save()
+		# export powder data as text file
 		for h in proj.histograms():
-			print('Verify {} refinement parameters.'.format(h.name))
-	proj.save()
-	# export powder data as text file
-	for h in proj.histograms():
-		h.Export(outname, TXTEXT)
+			h.Export(outname, TXTEXT)
 
 print('Refinements finished, see {} folder.'.format(OUTDIR))
 # ----------------------------------------------

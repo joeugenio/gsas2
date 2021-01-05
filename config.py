@@ -5,7 +5,7 @@ Python script for running multiple refinements in GSAS II
 Configuration file
 
 @author: Joel Eugênio Cordeiro Junior
-last updated on: 3/1/2020
+last updated on: 5/1/2020
 
 """
 
@@ -17,7 +17,7 @@ INDIR = '/home/samile/Documentos/dados_entrada/'
 # output data directory
 OUTDIR = '/home/samile/Documentos/dados_saida/'
 # preferred orientation model
-POM = ['anhydrite']
+POM = ['Gypssum']
 
 # Python Interpreter path
 PYPATH = '/home/samile/g2conda/bin'
