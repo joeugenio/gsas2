@@ -10,14 +10,14 @@ last updated on: 5/1/2020
 """
 
 # project name without extension .gpx
-PNAME = 'projeto-csab'
+PNAME = 'projeto-sem-hid'
 
 # input data directory
 INDIR = '/home/samile/Documentos/dados_entrada/'
 # output data directory
 OUTDIR = '/home/samile/Documentos/dados_saida/'
 # preferred orientation model
-POM = ['Gypssum']
+POM = ['f001', 'f003', 'f004']
 
 # Python Interpreter path
 PYPATH = '/home/samile/g2conda/bin'

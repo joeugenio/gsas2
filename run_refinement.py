@@ -16,7 +16,7 @@ sys.path.insert(0,GSPATH)
 import GSASIIscriptable as G2sc
 
 # set verbosity level (all, warn, error or None)
-G2sc.SetPrintLevel('warn')
+G2sc.SetPrintLevel('all')
 
 # ----------------------------------------------
 # Create projects
@@ -43,6 +43,11 @@ phases.sort()
 # creating and setting projects
 projs = []
 proj_dirs = []
+
+# create outout dir
+if not os.path.exists(OUTDIR):
+	os.makedirs(OUTDIR)
+
 for powder in powders:
 	# create dirs
 	proj_dir = os.path.join(OUTDIR, powder[:powder.lower().find(PWDEXT)])
@@ -70,9 +75,9 @@ for powder in powders:
 # ----------------------------------------------
 
 # parameters dictionary step 1
-dict1 = {'set': { 'Background': {'type': 'chebyschev-1', 'no. coeffs' : 3, 'refine': True}, 'Scale': 'True'}, 'clear': {'Sample Parameters': ['Scale']}}
+dict1 = {'set': { 'Background': {'type': 'chebyschev', 'no. coeffs' : 3, 'refine': True}, 'Scale': True}, 'clear': {'Sample Parameters': ['Scale']}}
 # parameters dictionary step 2
-dict2 = {'set': { 'Background': {'type': 'chebyschev-1', 'no. coeffs' : 15, 'refine': True}}}
+dict2 = {'set': { 'Background': {'type': 'chebyschev', 'no. coeffs' : 15, 'refine': True}}}
 # parameters dictionary step 3
 dict3 = {'set': { 'Sample Parameters': ['Shift']}}
 # parameters dictionary step 4
@@ -86,9 +91,10 @@ dict7 = {'set': {'Instrument Parameters': ['V']}}
 # parameters dictionary step 8
 dict8 = {'set': {'Instrument Parameters': ['U']}}
 # parameters dictionary step 9
-dict9 = {'set': {'Instrument Parameters': ['SH/L']}}
+#dict9 = {'set': {'Instrument Parameters': ['SH/L']}}
 # list of parameters dictionaries
-params = [dict1, dict2, dict3, dict4, dict5, dict6, dict7, dict8, dict9]
+#params = [dict1, dict2, dict3, dict4, dict5, dict6, dict7, dict8, dict9]
+params = [dict1, dict2, dict3, dict4, dict5, dict6, dict7, dict8]
 
 # parameters dictionary step 10, preferred orientation model (optional)
 dict10 = {'Pref.Ori.': True}
