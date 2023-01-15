@@ -1,4 +1,4 @@
 # GSAS II
-Python script for running multiple refinements in GSAS II
+Python script to run multiple refinements on GSAS II
 
 ## Get started

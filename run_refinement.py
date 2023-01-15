@@ -1,11 +1,11 @@
 #!/home/samile/g2conda/bin/python3
 # -*- coding: utf-8 -*-
 """
-Python script for running multiple refinements in GSAS II
+Python script to run multiple refinements on GSAS II
 Main script
 
 @author: Joel Eugênio Cordeiro Junior
-last updated on: 5/1/2020
+last updated on: 2023/01/15
 
 """
 
@@ -16,7 +16,7 @@ sys.path.insert(0,GSPATH)
 import GSASIIscriptable as G2sc
 
 # set verbosity level (all, warn, error or None)
-G2sc.SetPrintLevel('all')
+G2sc.SetPrintLevel('error')
 
 # ----------------------------------------------
 # Create projects
@@ -91,10 +91,11 @@ dict7 = {'set': {'Instrument Parameters': ['V']}}
 # parameters dictionary step 8
 dict8 = {'set': {'Instrument Parameters': ['U']}}
 # parameters dictionary step 9
-#dict9 = {'set': {'Instrument Parameters': ['SH/L']}}
+dict9 = {'set': {'Instrument Parameters': ['SH/L']}}
 # list of parameters dictionaries
-#params = [dict1, dict2, dict3, dict4, dict5, dict6, dict7, dict8, dict9]
-params = [dict1, dict2, dict3, dict4, dict5, dict6, dict7, dict8]
+params = [dict1, dict2, dict3, dict4, dict5, dict6, dict7, dict8, dict9]
+# params = [dict1, dict2, dict3, dict4, dict5, dict6, dict7, dict8]
+# params = [dict1, dict2, dict3, dict4, dict5]
 
 # parameters dictionary step 10, preferred orientation model (optional)
 dict10 = {'Pref.Ori.': True}

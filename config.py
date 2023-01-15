@@ -1,11 +1,11 @@
 #!/home/samile/g2conda/bin/python3
 # -*- coding: utf-8 -*-
 """
-Python script for running multiple refinements in GSAS II
+Python script to run multiple refinements on GSAS II
 Configuration file
 
 @author: Joel Eugênio Cordeiro Junior
-last updated on: 5/1/2020
+last updated on: 2023/01/15
 
 """
 
