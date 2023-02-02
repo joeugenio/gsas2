@@ -5,7 +5,7 @@ Python script to run multiple refinements on GSAS II
 Main script
 
 @author: Joel Eugênio Cordeiro Junior
-last updated on: 2023/01/15
+last updated on: 2023/02/02
 
 """
 
@@ -77,7 +77,7 @@ for powder in powders:
 # parameters dictionary step 1
 dict1 = {'set': { 'Background': {'type': 'chebyschev', 'no. coeffs' : 3, 'refine': True}, 'Scale': True}, 'clear': {'Sample Parameters': ['Scale']}}
 # parameters dictionary step 2
-dict2 = {'set': { 'Background': {'type': 'chebyschev', 'no. coeffs' : 15, 'refine': True}}}
+dict2 = {'set': { 'Background': {'type': 'chebyschev', 'no. coeffs' : 8, 'refine': True}}}
 # parameters dictionary step 3
 dict3 = {'set': { 'Sample Parameters': ['Shift']}}
 # parameters dictionary step 4
@@ -93,12 +93,13 @@ dict8 = {'set': {'Instrument Parameters': ['U']}}
 # parameters dictionary step 9
 dict9 = {'set': {'Instrument Parameters': ['SH/L']}}
 # list of parameters dictionaries
-params = [dict1, dict2, dict3, dict4, dict5, dict6, dict7, dict8, dict9]
-# params = [dict1, dict2, dict3, dict4, dict5, dict6, dict7, dict8]
-# params = [dict1, dict2, dict3, dict4, dict5]
+# params = [dict1, dict2, dict3, dict4, dict5, dict6, dict7, dict8, dict9]
+params = [dict1, dict2, dict3, dict4]
 
 # parameters dictionary step 10, preferred orientation model (optional)
 dict10 = {'Pref.Ori.': True}
+hkl = [1, 0, -1]
+#dict10 = {'Pref.Ori.': ['MD', 1.0, True, [1, 0, -1], 0, {}, [''], 0.1]}
 
 # run refinement steps from 1 to 9 for all projects
 for proj, proj_dir in zip(projs, proj_dirs):
@@ -121,6 +122,9 @@ for proj, proj_dir in zip(projs, proj_dirs):
 		for pname in POM:
 			if pname.lower() in fname.lower():
 				phs.set_HAP_refinements(dict10)
+				# set HKL parameters
+				for h in phs.data['Histograms'].keys():
+					phs.data['Histograms'][h]['Pref.Ori.'][3] = hkl
 				run_step10 = True
 	if run_step10:
 		try:

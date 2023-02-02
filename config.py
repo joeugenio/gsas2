@@ -17,7 +17,7 @@ INDIR = '/home/samile/Documentos/dados_entrada/'
 # output data directory
 OUTDIR = '/home/samile/Documentos/dados_saida/'
 # preferred orientation model
-POM = ['f001', 'f003', 'f004']
+POM = ['f001', 'f002']
 
 # Python Interpreter path
 PYPATH = '/home/samile/g2conda/bin'
