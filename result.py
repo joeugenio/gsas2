@@ -49,7 +49,8 @@ for ph in phases:
 	rows.append([ph[5:-4]])
 
 for h in powders:
-	first_row.append(h[:-4])
+	first_row.append('WF '+h[:-4])
+	first_row.append('sig '+h[:-4])
 	wf = []
 	sig = []
 	proj_file = os.path.join(OUTDIR, h[:h.lower().find(PWDEXT)], 'march-dollase.lst')
@@ -60,14 +61,19 @@ for h in powders:
 		index = l.find('GOF')
 		if index != -1:
 			last_row1.append(l[index+4:-1])
+			last_row1.append('')
 			last_row2.append(l[l.find('=')+1:l.find('%')+1])
+			last_row2.append('')
 		index = l.find('Weightfraction')
 		if index != -1:
 			wf.append(l[l.find(':',index)+1:l.find(',',index)])
 			sig.append(l[l.find('sig',index)+3:-1])
 	# next rows
 	for r,w,s in zip(rows[1:],wf,sig):
-		r.append(w+' ('+s+')')
+		w = round(float(w)*100,2)
+		s = round(float(s)*100,2)
+		r.append(w)
+		r.append(s)
 
 rows.append(last_row1)
 rows.append(last_row2)
