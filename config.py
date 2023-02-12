@@ -17,7 +17,7 @@ INDIR = '/home/samile/Documentos/dados_entrada/'
 # output data directory
 OUTDIR = '/home/samile/Documentos/dados_saida/'
 # preferred orientation model
-POM = ['f002']
+POM = ['f001', 'f002']
 HKL = [1, 0, -1]
 
 # Python Interpreter path
