@@ -5,6 +5,10 @@ Estimation of non-crystalline phases by fitting multiple peaks
 @author: Joel Eugênio Cordeiro Junior
 last updated on Feb 11 2023
 
+References
+1 - https://lmfit.github.io/lmfit-py/builtin_models.html#example-3-fitting-multiple-peaks-and-using-prefixes
+2 - https://chrisostrouchov.com/post/peak_fit_xrd_python/
+
 """
 import os
 import numpy as np

@@ -54,8 +54,13 @@ for h in powders:
 	wf = []
 	sig = []
 	proj_file = os.path.join(OUTDIR, h[:h.lower().find(PWDEXT)], 'march-dollase.lst')
-	with open(proj_file, 'r') as f:
-	  	lines = f.readlines()
+	try:	
+		with open(proj_file, 'r') as f:
+		  	lines = f.readlines()
+	except(FileNotFoundError, IOError):
+		proj_file = os.path.join(OUTDIR, h[:h.lower().find(PWDEXT)], PNAME+'.lst')
+		with open(proj_file, 'r') as f:
+		  	lines = f.readlines()
 	for l in lines:
 		l = l.replace(' ','')
 		index = l.find('GOF')

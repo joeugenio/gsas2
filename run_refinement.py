@@ -5,7 +5,7 @@ Python script to run multiple refinements on GSAS II
 Main script
 
 @author: Joel Eugênio Cordeiro Junior
-last updated on: 2023/02/02
+last updated on: Feb 11 2023
 
 """
 
@@ -98,8 +98,6 @@ params = [dict1, dict2, dict3, dict4]
 
 # parameters dictionary step 10, preferred orientation model (optional)
 dict10 = {'Pref.Ori.': True}
-hkl = [1, 0, -1]
-#dict10 = {'Pref.Ori.': ['MD', 1.0, True, [1, 0, -1], 0, {}, [''], 0.1]}
 
 # run refinement steps from 1 to 9 for all projects
 for proj, proj_dir in zip(projs, proj_dirs):
@@ -124,7 +122,7 @@ for proj, proj_dir in zip(projs, proj_dirs):
 				phs.set_HAP_refinements(dict10)
 				# set HKL parameters
 				for h in phs.data['Histograms'].keys():
-					phs.data['Histograms'][h]['Pref.Ori.'][3] = hkl
+					phs.data['Histograms'][h]['Pref.Ori.'][3] = HKL
 				run_step10 = True
 	if run_step10:
 		try:
