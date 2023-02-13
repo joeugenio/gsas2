@@ -10,15 +10,16 @@ last updated on: Feb 11 2023
 """
 
 # project name without extension .gpx
-PNAME = 'projeto-sem-hid'
+PNAME = 'cpp-pasta'
 
 # input data directory
 INDIR = '/home/samile/Documentos/dados_entrada/'
 # output data directory
 OUTDIR = '/home/samile/Documentos/dados_saida/'
 # preferred orientation model
-POM = ['f001', 'f002']
-HKL = [1, 0, -1]
+POM = { 'f004' : [0, 0, 1],
+	    'f011' : [1, 0, 0]
+      }
 
 # Python Interpreter path
 PYPATH = '/home/samile/g2conda/bin'
@@ -38,4 +39,4 @@ PWDEXT = '.raw'
 TXTEXT = '.txt'
 
 # parameter file name
-PRM = 'param.prm'
+PRM = 'Bruker.instprm'

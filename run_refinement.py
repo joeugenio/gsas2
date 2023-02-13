@@ -77,7 +77,7 @@ for powder in powders:
 # parameters dictionary step 1
 dict1 = {'set': { 'Background': {'type': 'chebyschev', 'no. coeffs' : 3, 'refine': True}, 'Scale': True}, 'clear': {'Sample Parameters': ['Scale']}}
 # parameters dictionary step 2
-dict2 = {'set': { 'Background': {'type': 'chebyschev', 'no. coeffs' : 8, 'refine': True}}}
+dict2 = {'set': { 'Background': {'type': 'chebyschev', 'no. coeffs' : 13, 'refine': True}}}
 # parameters dictionary step 3
 dict3 = {'set': { 'Sample Parameters': ['Shift']}}
 # parameters dictionary step 4
@@ -117,12 +117,12 @@ run_step10 = False
 for proj, proj_dir in zip(projs, proj_dirs):
 	# set march dollase preferred orientation model from POM list for some phases 
 	for fname, phs in zip(phases, proj.phases()):
-		for pname in POM:
+		for pname,hkl in POM.items():
 			if pname.lower() in fname.lower():
 				phs.set_HAP_refinements(dict10)
 				# set HKL parameters
 				for h in phs.data['Histograms'].keys():
-					phs.data['Histograms'][h]['Pref.Ori.'][3] = HKL
+					phs.data['Histograms'][h]['Pref.Ori.'][3] = hkl
 				run_step10 = True
 	if run_step10:
 		try:
