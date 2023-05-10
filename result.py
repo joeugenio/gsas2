@@ -6,7 +6,7 @@ Create table with results
 Main script
 
 @author: Joel Eugênio Cordeiro Junior
-last updated on: 2023/02/02
+last updated on: Feb 12 2023
 
 """
 

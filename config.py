@@ -17,7 +17,7 @@ INDIR = '/home/samile/Documentos/dados_entrada/'
 # output data directory
 OUTDIR = '/home/samile/Documentos/dados_saida/'
 # preferred orientation model
-POM = { 'f004' : [0, 0, 1],
+POM = { 'f010' : [0, 0, 1],
 	    'f011' : [1, 0, 0]
       }
 

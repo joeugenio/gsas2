@@ -1,3 +1,4 @@
+#!/home/samile/g2conda/bin/python3
 # -*- coding: utf-8 -*-
 """
 Estimation of non-crystalline phases by fitting multiple peaks
